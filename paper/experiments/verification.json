@@ -1,0 +1,19 @@
+{
+  "runs": 10,
+  "method_runs": 40,
+  "outer_updates": 4000,
+  "verified_final_arrays": true,
+  "max_majorizer_identity_error": 1.581313273141434e-14,
+  "max_final_metric_error": 0.0,
+  "poisson_updates": 1000,
+  "poisson_minimum_slack": 1.0760208158281253e-05,
+  "max_inner_kkt": 9.998960274053221e-08,
+  "zero_group_total": 0,
+  "minimum_expected_group": 49.363075345345024,
+  "objective_increases": {
+    "SIRT": 0,
+    "LS": 59,
+    "WLS": 0,
+    "Poisson": 0
+  }
+}
