@@ -15,6 +15,7 @@ This repository contains the numerical code and synthetic data supporting the ma
 | `paper/experiments/trajectories.csv`, `results.json`, `runs.json`, `summary.*`, `verification.json`, and `protocol.json` | Per-iteration diagnostics, final metrics, experiment settings, and verification results. |
 | `paper/data/*.csv` | Scalar diagnostic source data. |
 | `paper/figures/*.pdf` and `*.png` | Figures regenerated from the saved data. |
+| `lean/` | Lean 4 companion proofs for the allocation, majorization/descent, scalar Poisson, and mismatch claims. |
 | `SHA256SUMS` | Checksums for the deposited code and numerical files. |
 
 The experiment uses a 32 × 32 image grid, four fine energy bins, 60 views, 48 detector offsets, two count levels (1,000 and 20,000 incident photons per ray), and seeds 20260910–20260914. Each ray has two energy groups whose dividing threshold changes by view. The recorded arrays comprise 40 reconstructions and 4,000 outer updates. See `paper/experiments/protocol.json` for the complete parameter and environment record.
@@ -35,6 +36,19 @@ uv run python paper/code/summarize_2d.py
 The last command verifies the archived two-dimensional arrays and trajectories, then regenerates `paper/experiments/summary.*`, `verification.json`, `table_2d.tex`, and figures. It does **not** rerun the 40 optimizations. To rerun them, use `uv run python paper/code/dde_2d.py` first; this overwrites the archived experiment files. The `--out` option sends a rerun to another directory if the archived outputs should be preserved. The environment is pinned in `pyproject.toml`, `.python-version`, and `uv.lock`.
 
 The timed comparisons in `results.json` came from the recorded macOS arm64 run. Elapsed times depend on hardware and background load. The numerical experiment supports likelihood and convergence diagnostics; it is not clinical or detector-system validation.
+
+## Lean companion
+
+The `lean/` directory contains the source files, toolchain pin, and Lake configuration for Lean 4.33.1 with mathlib v4.33.1. To build it, follow [`lean/README.md`](lean/README.md) or run:
+
+```sh
+cd lean
+lake update
+lake exe cache get
+lake build
+```
+
+The machine-checked statements cover grouped-count allocation, abstract majorization and descent, finite telescoping bounds, a scalar Poisson minimizer, and a scalar LS/Poisson mismatch counterexample. They do **not** formalize the manuscript's full nonsmooth subdifferential and Kurdyka–Łojasiewicz convergence proof.
 
 ## Availability and version
 
